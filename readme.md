@@ -33,3 +33,7 @@ npm run transcribe
 # summarize the transcription
 npm run summarize recordings/transcription.txt
 ```
+
+## Aside
+
+Do NOT commit `.env` file. It is added to `.gitignore` but just in case. Use [git-secrets](https://github.com/awslabs/git-secrets) to prevent you from committing secrets and credentials into git repositories
