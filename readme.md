@@ -1,6 +1,6 @@
-# openai-playground
+# ai-playground
 
-My scratchpad for OpenAI Gym and other AI/ML experiments.
+My scratchpad for AI/ML experiments and tools
 
 ## Start
 
