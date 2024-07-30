@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import filenamify from 'filenamify'
 import fs from 'node:fs'
-import { getDateTimeString, promptTerminal } from './utils.js'
+import { getDateTimeString, promptTerminal } from '../utils/index.js'
 import path from 'path'
 
 const { RECORD_EXECUTABLE, PATH_TO_TRANSCRIBE_MODEL, PATH_TO_TRANSCRIBE_EXEC } =
