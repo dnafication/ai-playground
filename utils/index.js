@@ -29,3 +29,15 @@ export const getDateTimeString = () => {
 
   return `${year}${month}${day}-${hour}${minute}`
 }
+
+/**
+ * Removes duplicate adjacent words from a string.
+ *
+ * @param {string} str - The input string.
+ * @returns {string} - The string with duplicate adjacent words removed.
+ */
+export const removeDuplicateAdjacentWords = (str) => {
+  const words = str.split(/\s+/)
+  const uniqueWords = words.filter((word, index) => word !== words[index + 1])
+  return uniqueWords.join(' ')
+}
