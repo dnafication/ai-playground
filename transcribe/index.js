@@ -2,7 +2,6 @@ import { spawn } from 'child_process'
 import filenamify from 'filenamify'
 import fs from 'node:fs'
 import { getDateTimeString, promptTerminal } from '../utils/index.js'
-import path from 'path'
 
 const { RECORD_EXECUTABLE, PATH_TO_TRANSCRIBE_MODEL, PATH_TO_TRANSCRIBE_EXEC } =
   process.env
@@ -53,7 +52,7 @@ process.on('SIGINT', async () => {
   console.log('Transcribing...')
   const transcribeProcess = spawn(PATH_TO_TRANSCRIBE_EXEC + '/main', [
     '-m',
-    path.join(PATH_TO_TRANSCRIBE_MODEL, 'ggml-base.en.bin'),
+    PATH_TO_TRANSCRIBE_MODEL,
     '-f',
     filePath,
     '-otxt'
