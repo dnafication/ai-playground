@@ -33,8 +33,10 @@ const main = async () => {
     process.exit(0)
   }
 
+  const model = process.env.OPENAI_MODEL_NAME ?? 'gpt-4o-mini'
+
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model,
     messages: [
       {
         role: 'system',
