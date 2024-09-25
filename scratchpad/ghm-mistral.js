@@ -4,6 +4,8 @@ import { Mistral } from '@mistralai/mistralai'
 // Create your PAT token by following instructions here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 const token = process.env['GITHUB_TOKEN']
 
+// Using Github Marketplace Models: https://github.com/marketplace/models
+
 export async function main() {
   const client = new Mistral({
     apiKey: token,
