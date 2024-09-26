@@ -17,6 +17,7 @@
     "@langchain/core": "^0.2.32",
     "@langchain/langgraph": "^0.2.2",
     "@langchain/ollama": "^0.0.4",
+    "@mistralai/mistralai": "^1.1.0",
     "axios": "^1.7.2",
     "execa": "^7.1.1",
     "filenamify": "^6.0.0",
