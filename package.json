@@ -14,14 +14,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@langchain/community": "^0.3.3",
     "@langchain/core": "^0.2.32",
     "@langchain/langgraph": "^0.2.2",
     "@langchain/ollama": "^0.0.4",
+    "@langchain/openai": "^0.3.2",
+    "@langchain/textsplitters": "^0.1.0",
     "@mistralai/mistralai": "^1.1.0",
     "axios": "^1.7.2",
     "execa": "^7.1.1",
     "filenamify": "^6.0.0",
     "gpt-3-encoder": "^1.1.4",
+    "langchain": "^0.3.2",
     "node-fetch": "^3.3.2",
     "openai": "^4.53.2"
   },
