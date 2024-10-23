@@ -1,7 +1,6 @@
-import fs from 'fs/promises'
 import path from 'path'
 import url from 'url'
-import { removeDuplicateAdjacentWords } from '../utils/index.js'
+import { retrieveTranscription } from '../../utils/index.js'
 import { loadSummarizationChain } from 'langchain/chains'
 // import { SearchApiLoader } from '@langchain/community/document_loaders/web/searchapi'
 import { TokenTextSplitter } from '@langchain/textsplitters'
@@ -21,12 +20,8 @@ import { Document } from '@langchain/core/documents'
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const transcriptionFileName = process.argv[2]
-if (!transcriptionFileName || !transcriptionFileName.endsWith('.txt')) {
-  throw new Error('Please provide a valid transcription file name')
-}
-const tFilePath = path.join(__dirname, '..', transcriptionFileName)
-const transcription = await fs.readFile(tFilePath, 'utf-8')
-const cleanedTranscription = removeDuplicateAdjacentWords(transcription)
+const pathToTranscription = path.join(__dirname, '../..', transcriptionFileName)
+const cleanedTranscription = await retrieveTranscription(pathToTranscription)
 
 const transcriptDoc = new Document({
   pageContent: cleanedTranscription
@@ -41,23 +36,21 @@ const docsSummary = await splitter.splitDocuments([transcriptDoc])
 
 const llmSummary = new ChatOllama({
   model: 'llama3.2',
-  temperature: 0.3
+  temperature: 0.5,
+  topP: 0.9,
+  frequencyPenalty: 0.8,
+  presencePenalty: 0.5,
+  streaming: false
 })
 
 const summaryTemplate = `
-You are an expert in summarizing meetings.
-Your goal is to create a summary of a meeting.
-Below you find the transcript of meeting:
+The following is a transcript of technical meeting among a group of people in a team. Summarize the meeting in clear, concise and accurate manner, using bullet points divided into sections such as key points, action items, decisions, and questions.
+
+Transcript:
 --------
 {text}
 --------
 
-The transcript of the meeting will also be used as the basis for a question and answer bot.
-Provide some examples questions and answers that could be asked about the meeting. Make these questions very specific.
-
-Total output will be a summary of the meeting and a list of example questions the user could ask of the meeting.
-
-SUMMARY AND QUESTIONS:
 `
 
 const SUMMARY_PROMPT = PromptTemplate.fromTemplate(summaryTemplate)

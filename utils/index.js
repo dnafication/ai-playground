@@ -1,4 +1,5 @@
 import readline from 'node:readline/promises'
+import fs from 'node:fs/promises'
 
 /**
  * Prompts the user with a question in the terminal and returns the user's answer.
@@ -40,4 +41,13 @@ export const removeDuplicateAdjacentWords = (str) => {
   const words = str.split(/\s+/)
   const uniqueWords = words.filter((word, index) => word !== words[index + 1])
   return uniqueWords.join(' ')
+}
+
+export async function retrieveTranscription(tFilePath) {
+  if (!tFilePath || !tFilePath.endsWith('.txt')) {
+    throw new Error('Please provide a valid transcription file name')
+  }
+  const transcription = await fs.readFile(tFilePath, 'utf-8')
+  const cleanedTranscription = removeDuplicateAdjacentWords(transcription)
+  return cleanedTranscription
 }
