@@ -1,14 +1,16 @@
 import ora from 'ora'
 import path from 'path'
-import url from 'url'
-import { retrieveTranscription } from '../../utils/index.js'
+import url from 'node:url'
+import { promptTerminal, retrieveTranscription } from '../../utils/index.js'
 import { ChatOllama } from '@langchain/ollama'
 import { ChatOpenAI } from '@langchain/openai'
 import { meetingSummaryTemplate } from '../../templates/meetings.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-const transcriptionFileName = process.argv[2]
+const transcriptionFileName = await promptTerminal(
+  'Enter the name of the transcription file: '
+)
 const pathToTranscription = path.join(__dirname, '../..', transcriptionFileName)
 const cleanedTranscription = await retrieveTranscription(pathToTranscription)
 
@@ -19,7 +21,8 @@ const cleanedTranscription = await retrieveTranscription(pathToTranscription)
 // })
 
 const chatModel = new ChatOpenAI({
-  temperature: 0.5
+  temperature: 0.5,
+  model: 'llama-3.2-3b-instruct'
   // verbose: true
 })
 
